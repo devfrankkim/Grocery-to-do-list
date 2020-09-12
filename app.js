@@ -23,9 +23,9 @@ let addItem = (e) => {
   if (value && !editFlag) {
     // console.log("add the item to the list");
     const articleElement = document.createElement("article");
-    // add class
     articleElement.classList.add("grocery-item");
     // dataset -> unique ID - To access -> dataset
+
     // Set up ID
     const attr = document.createAttribute("data-id");
     attr.value = id;
@@ -42,9 +42,16 @@ let addItem = (e) => {
           <i class="fas fa-trash"></i>
         </button>
       `;
-    container.style.visibility = "visible";
+    // append child
     list.append(articleElement);
+    // display alert
     displayAlert("Item added to the list", "success");
+    // show container
+    container.classList.add("show-container");
+    // add to clocal storage
+    addToLocalStorage(id, value);
+    // set back to default
+    setBackToDefault();
   } else if (value && editFlag) {
     console.log("editing");
   } else {
@@ -64,12 +71,36 @@ const removeAlert = (action) => {
   setTimeout(() => {
     alert.textContent = "";
     alert.classList.remove(`alert-${action}`);
-  }, 2500);
+  }, 3000);
 };
-// ****** LOCAL STORAGE **********
 
+// clear Items
+function clearItems() {
+  const items = document.querySelectorAll(".grocery-item");
+  // if the length of the NodeList is bigger than 0
+  if (items.length > 0) {
+    items.forEach((item) => {
+      list.removeChild(item);
+    });
+  }
+  container.classList.remove("show-container");
+  displayAlert("Cleared the items", "success");
+}
+// set back to default
+function setBackToDefault() {
+  grocery.value = "";
+  editFlag = false;
+  editId = "";
+  submitBtn.textContent = "submit";
+}
+// ****** LOCAL STORAGE **********
+function addToLocalStorage(id, value) {
+  console.log("added to local storage");
+}
 // ****** SETUP ITEMS **********
 
 // ****** EVENT LISTENERS **********
 // submit form
 form.addEventListener("submit", addItem);
+// clear items
+clearBtn.addEventListener("click", clearItems);
