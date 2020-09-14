@@ -6,6 +6,8 @@ const submitBtn = document.querySelector(".submit-btn");
 const container = document.querySelector(".grocery-container");
 const list = document.querySelector(".grocery-list");
 const clearBtn = document.querySelector(".clear-btn");
+let deleteBtn = document.querySelector(".delete-btn");
+let editBtn = document.querySelector(".edit-btn");
 
 // edit option
 let editElement;
@@ -42,6 +44,13 @@ let addItem = (e) => {
           <i class="fas fa-trash"></i>
         </button>
       `;
+
+    const deleteBtn = articleElement.querySelector(".delete-btn");
+    const editBtn = articleElement.querySelector(".edit-btn");
+
+    deleteBtn.addEventListener("click", deleteItem);
+    editBtn.addEventListener("click", editItem);
+
     // append child
     list.append(articleElement);
     // display alert
@@ -57,6 +66,8 @@ let addItem = (e) => {
   } else {
     // console.log("empty value");
     displayAlert("please enter value", "danger");
+    setBackToDefault();
+    // localStorage.removeItem("list");
   }
 };
 
@@ -74,7 +85,7 @@ const removeAlert = (action) => {
   }, 3000);
 };
 
-// clear Items
+// ==== clear Items ====
 function clearItems() {
   const items = document.querySelectorAll(".grocery-item");
   // if the length of the NodeList is bigger than 0
@@ -85,6 +96,22 @@ function clearItems() {
   }
   container.classList.remove("show-container");
   displayAlert("Cleared the items", "success");
+}
+// ==== delete ====
+function deleteItem(e) {
+  console.log("item deleted");
+  const element = e.currentTarget.parentNode.parentNode;
+  list.removeChild(element);
+
+  const items = document.querySelectorAll(".grocery-item");
+  if (items.length === 0) {
+    container.classList.remove("show-container");
+  }
+}
+
+// ==== edit ====
+function editItem() {
+  console.log("edit item");
 }
 // set back to default
 function setBackToDefault() {
