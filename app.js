@@ -62,11 +62,15 @@ let addItem = (e) => {
     // set back to default
     setBackToDefault();
   } else if (value && editFlag) {
-    console.log("editing");
+    editElement.innerHTML = value;
+    displayAlert("value edited", "success");
+    // edit local storage
+    editLocalStorage(editID, value);
+    setBackToDefault();
   } else {
     // console.log("empty value");
     displayAlert("please enter value", "danger");
-    setBackToDefault();
+    // setBackToDefault();
     // localStorage.removeItem("list");
   }
 };
@@ -82,7 +86,7 @@ const removeAlert = (action) => {
   setTimeout(() => {
     alert.textContent = "";
     alert.classList.remove(`alert-${action}`);
-  }, 3000);
+  }, 2000);
 };
 
 // ==== clear Items ====
@@ -99,32 +103,50 @@ function clearItems() {
 }
 // ==== delete ====
 function deleteItem(e) {
-  console.log("item deleted");
   const element = e.currentTarget.parentNode.parentNode;
+  // const id = element.datset.id;
+
   list.removeChild(element);
 
-  const items = document.querySelectorAll(".grocery-item");
-  if (items.length === 0) {
+  if (list.children.length === 0) {
     container.classList.remove("show-container");
   }
+  displayAlert("item removed", "danger");
+  setBackToDefault();
+  // remove from local storage
+  // removeFromLocalStorage(id);
 }
 
 // ==== edit ====
-function editItem() {
-  console.log("edit item");
+function editItem(e) {
+  const element = e.currentTarget.parentNode.parentNode;
+  // set edit item
+  editElement = e.currentTarget.parentNode.previousElementSibling;
+  // set form value
+  grocery.value = editElement.innerHTML;
+  editFlag = true;
+  editID = element.dataset.id;
+  submitBtn.textContent = "edit";
+
+  submitBtn.addEventListener("click", () => {
+    if (grocery.value && editFlag) {
+      editElement.textContent = grocery.value;
+    }
+  });
 }
 // set back to default
 function setBackToDefault() {
   grocery.value = "";
   editFlag = false;
-  editId = "";
+  editID = "";
   submitBtn.textContent = "submit";
 }
 // ****** LOCAL STORAGE **********
 function addToLocalStorage(id, value) {
-  console.log("added to local storage");
+  // console.log("added to local storage");
 }
-// ****** SETUP ITEMS **********
+function removeFromLocalStorage(id) {}
+function editLocalStorage(id, value) {}
 
 // ****** EVENT LISTENERS **********
 // submit form
