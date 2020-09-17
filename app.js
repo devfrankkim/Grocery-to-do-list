@@ -47,6 +47,8 @@ let addItem = (e) => {
 
     const deleteBtn = articleElement.querySelector(".delete-btn");
     const editBtn = articleElement.querySelector(".edit-btn");
+    // console.log(deleteBtn);
+    // console.log(editBtn);
 
     deleteBtn.addEventListener("click", deleteItem);
     editBtn.addEventListener("click", editItem);
