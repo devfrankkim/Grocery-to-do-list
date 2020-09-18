@@ -146,12 +146,63 @@ function setBackToDefault() {
 // ****** LOCAL STORAGE **********
 function addToLocalStorage(id, value) {
   // console.log("added to local storage");
+
+  const grocery = { id: id, value: value };
+  const items = localStorage.getItem("list")
+    ? JSON.parse(localStorage.getItem("list"))
+    : [];
+
+  // if (items) console.log(parsed);
+
+  // add grocery to item []
+  items.push(grocery);
+  console.log(items);
+
+  let parsed = localStorage.getItem("list");
+
+  // console.log(items);
+
+  localStorage.setItem("list", JSON.stringify(items));
+  console.log(parsed);
+  if (parsed) console.log(parsed.length);
+
+  // if (items) {
+  //   let parsed = JSON.parse(localStorage.getItem("list"));
+  //   console.log(parsed);
+  // } else {
+  //   items = [];
+  //   items.push(grocery);
+  //   console.log(items);
+  //   localStorage.setItem("list", JSON.stringify(items));
+  // }
+  // console.log(items);
+  // if the item was not there, we set this up
 }
 function removeFromLocalStorage(id) {}
 function editLocalStorage(id, value) {}
+
+// localStorage api
+// setItem
+// getItem
+// removeItem
+// save as strings
 
 // ****** EVENT LISTENERS **********
 // submit form
 form.addEventListener("submit", addItem);
 // clear items
 clearBtn.addEventListener("click", clearItems);
+/*
+store it as An object
+array with objects
+
+set (stringify)- get(parse) for array - remove
+
+
+localStorage.setItem("orange", JSON.stringify(["item", "item2"]));
+const orange = localStorage.getItem("orange");
+console.log(orange);
+console.log(JSON.parse(orange));
+localStorage.removeItem("orange");
+
+*/
