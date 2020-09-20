@@ -171,11 +171,7 @@ p {
     width: 95vw;
   }
 }
-main {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-}
+
 /*
 =============== 
 Grocery List
@@ -200,7 +196,6 @@ Grocery List
   font-size: 0.7rem;
   border-radius: 0.25rem;
   letter-spacing: var(--spacing);
-  text-transform: capitalize;
 }
 .alert-danger {
   color: #721c24;
@@ -258,7 +253,7 @@ Grocery List
 .grocery-container {
   margin-top: 2rem;
   transition: var(--transition);
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .show-container {
   visibility: visible;
